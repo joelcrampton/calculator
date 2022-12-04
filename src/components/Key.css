@@ -1,0 +1,29 @@
+.key{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.key.grey{
+  background: #cccccc
+}
+
+.key.red{
+  color: #ffffff;
+  background: #ff3333
+}
+
+.key.orange{
+  color: #ffffff;
+  background: #ff9900
+}
+
+.key.yellow{
+  background: #ffcc00
+}
