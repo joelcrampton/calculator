@@ -39,27 +39,18 @@ function App() {
   useEffect(() => {
     function getEquationString(equation){
       const merged = [...equation];
-      for(let i = 0; i < merged.length; i++){
-        if(merged[i] instanceof Array) merged[i] = merged[i].join('');
-        else merged[i] = getSymbol(merged[i]);
-      }
+      for(let i = 0; i < merged.length; i++) merged[i] = merged[i] instanceof Array ? merged[i].join('') : getSymbol(merged[i]);
       return formatEquationString(merged.join(' '));
     }
 
     function formatEquationString(str){
-      let formatted = str.replace(' ( ', '(');
-      formatted = formatted.replace('( ', '(');
-      formatted = formatted.replace(' (', '(');
-      formatted = formatted.replace(' ) ', ')');
-      formatted = formatted.replace(') ', ')');
-      formatted = formatted.replace(' )', ')');
-      formatted = formatted.replace(' ^ ', '^');
-      formatted = formatted.replace('^ ', '^');
-      formatted = formatted.replace(' ^', '^');
-      return formatted.replace(' %', '%');
+      let formatted = str.replaceAll(' (', '(').replaceAll('( ', '(');
+      formatted = formatted.replaceAll(' )', ')').replaceAll(') ', ')');
+      formatted = formatted.replaceAll(' ^', '^').replaceAll('^ ', '^');
+      return formatted.replaceAll(' %', '%');
     }
 
-    function getPrevOperand(){
+    function getOperand(){
       for(let i = equation.length - 1; i >= 0; i--){
         if(equation[i] instanceof Array) return equation[i];
       }
@@ -67,7 +58,7 @@ function App() {
     }
 
     setHistory(completed ? getTree(end(equations)).toString() + ' =' : getEquationString(equation));
-    setRecent(completed ? getEquationString(equation) : getPrevOperand());
+    setRecent(completed ? getEquationString(equation) : getOperand());
   }, [equation, equations, completed]);
 
   function setTop(top){
